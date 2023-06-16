@@ -74,7 +74,7 @@ function menu() {
 }
 
 function viewAllEmployees() {
-    var query = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name AS department, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department on role.department_id = department.id"
+    var query = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department on role.department_id = department.id"
     connection.query(query, function (err, res) {
       console.table(res);
       menu();
@@ -93,7 +93,7 @@ function viewEmployees() {
 };
 
 // view all departments in the database
-function viewDepartments() {
+function viewAllDept() {
     var query = 'SELECT * FROM department';
     connection.query(query, function(err, res) {
         if(err)throw err;
@@ -103,7 +103,7 @@ function viewDepartments() {
 };
 
 // view all roles in the database
-function viewRoles() {
+function viewAllRoles() {
     var query = 'SELECT * FROM role';
     connection.query(query, function(err, res){
         if (err) throw err;
@@ -181,7 +181,7 @@ function addDept() {
       })
       .then(function (res) {
         const newDepartment = res.newDept;
-        const query = `INSERT INTO department (department_name) VALUES ("${newDepartment}")`;
+        const query = `INSERT INTO department (name) VALUES ("${newDepartment}")`;
         connection.query(query, function (err, res) {
           if (err) {
             throw err;
