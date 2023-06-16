@@ -20,8 +20,7 @@ connection.connect(function (err) {
 });
 
 function menu() {
-    inquirer.prompt
-        ({
+    inquirer.prompt ({
             type: "list",
             name: "menu",
             message: "What would you like to do?",
@@ -66,8 +65,8 @@ function menu() {
                     updateEmployeeRole();
                     break;
 
-                default:
-                  process.exit();
+                case "exit":
+                  connection.end();
                     break;
             }
 
