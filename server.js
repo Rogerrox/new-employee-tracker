@@ -3,19 +3,20 @@ const mysql = require('mysql2');
 const consoleTable = require("console.table")
 
 //connection with database created
-const db = mysql.createConnection({
+const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     port: 3306,
     password: "Scsd@45Ct",
     database: "employee_db"
 })
-console.log("Conected to the employee_db.")
+
 
 // connect to sql server and sql database
-connection.connect( (err)=> {
+connection.connect(function (err) {
     if (err) throw err;
-    mainMenu()
+    console.log("Conected to the employee_db.")
+    menu();
 });
 
 function menu() {
@@ -35,8 +36,8 @@ function menu() {
                 "Exit"
             ]
         })
-        .then(function (answer) {
-            switch (answer.menu) {
+        .then(function (choice) {
+            switch (choice.menu) {
                 case "View All Employees":
                     viewAllEmployees();
                     break;
@@ -65,8 +66,8 @@ function menu() {
                     updateEmployeeRole();
                     break;
 
-                case "Exit":
-                    connection.end();
+                default:
+                  process.exit();
                     break;
             }
 
